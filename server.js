@@ -10,7 +10,11 @@ try {
   }
 } catch {}
 
-const root = path.join(__dirname, 'public');
+// El despliegue puede servirse tanto desde la carpeta public como desde la raíz
+// (GitHub permite cargar archivos sin conservar carpetas). Preferimos public
+// cuando existe y usamos la raíz como respaldo.
+const publicRoot = path.join(__dirname, 'public');
+const root = fs.existsSync(publicRoot) ? publicRoot : __dirname;
 const port = Number(process.env.PORT || 3000);
 const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml' };
 const send = (res, status, data) => { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(data)); };
