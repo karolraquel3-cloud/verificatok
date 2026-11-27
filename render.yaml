@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: verificatok
+    runtime: node
+    plan: free
+    buildCommand: ""
+    startCommand: "node server.js"
+    healthCheckPath: /
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.0-flash
+      - key: FACTCHECK_API_KEY
+        sync: false
+      - key: FACTCHECK_LANGUAGE
+        value: es
